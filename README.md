@@ -12,6 +12,7 @@ BankAccount is a class that has name,balance,password attributes and it supports
 ```
 ## Usage
 ```shebang
-python bank_account.py
-
+python simulation.py
 ```
+And then, follow the instructions on command line.
+
