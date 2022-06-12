@@ -47,26 +47,31 @@ class BankAccount:
         self.password=password
         self.__class__.allAccounts.append((self))
 
-    def deposit(self,amount,password):
+    def deposit(self,amount,password,verbose):
         if password!=self.password:
             print("Incorrect password")
             return None
         if amount<0:
             print("Invalid amount")
             return None
-        print("Deposit successful")
+        if verbose==True:
+             print("Deposit successful")
         self.balance+=amount
         return self.balance
-    def withdraw(self,amountToWithdraw,password):
+    def withdraw(self,amountToWithdraw,password,verbose):
         if password!=self.password:
             print("Incorrect password")
             return None
         if amountToWithdraw>self.balance:
             print("Insufficient funds for withdrawal")
             return None
-        print("Withdrawal successful")
-        self.balance-=amountToWithdraw
+        if verbose==True:
+            print("Withdrawal successful")
+
+        self.balance -= amountToWithdraw
         return self.balance
+
+
     def check_balance(self,password):
         if password==self.password:
             return self.name+"'s current balance: "+str(self.balance)
@@ -83,11 +88,12 @@ class BankAccount:
         if amount<0:
             print("Invalid amount")
             return None
-        if otherAccount not in self.allAccounts:
-            otherAccount=BankAccount(otherAccount,0,0)
-        otherAccount.deposit(amount,otherAccount.password)
-        self.withdraw(amount,self.password)
+        #if otherAccount not in self.allAccounts:
+            #otherAccount=BankAccount(otherAccount,0,0)
+        otherAccount.deposit(amount,otherAccount.password,False)
+        self.withdraw(amount,self.password,False)
         print("Transfer successful")
+        return otherAccount.balance
     def convert(self,amount,password,original_currency,desired_currency):
         #Converts the given amount from the original currency to a desired currency.
         if password!=self.password:
@@ -114,7 +120,7 @@ class BankAccount:
                                    self.currencyRates[desired_currency]
         desired_currency_balance=desired_currency_balance if original_currency_balance!=0 else self.balance*self.currencyRates[original_currency]/self.currencyRates[desired_currency]
 
-        print(f"Conversion successful! \n Original currency balance: {original_currency} {original_currency_balance:.3f} \n Desired currency balance: {desired_currency} {desired_currency_balance:.3f}")
+        print(f"Conversion successful! \n Original currency balance: {original_currency} {original_currency_balance:.2f} \n Desired currency balance: {desired_currency} {desired_currency_balance:.2f}")
         return converted_amount
     def __str__(self):
         return "Account name: "+self.name+"\nAccount password: "+str(self.password)+"\nAccount current balance: "+str(self.balance)
