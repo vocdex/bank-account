@@ -43,7 +43,7 @@ class BankAccount:
         self.password=password
         self.__class__.allAccounts.append((self))
 
-    def deposit(self,currency,amount,password):
+    def deposit(self,amount,password):
         if password!=self.password:
             print("Incorrect password")
             return None
