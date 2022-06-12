@@ -32,10 +32,14 @@ class BankAccount:
         return newAccount
     @classmethod
     def switch_account(cls,name,password):
-        if password!=cls.password:
-            print("Incorrect password")
-            return None
         cls.name=name
+        cls.password=password
+        for instance in cls.allAccounts:
+            if instance.name==name:
+                cls.balance=instance.balance
+                return cls
+            print("Account does not exist")
+            return None
         print("Account switched successfully")
     def __init__(self,name,balance,password):
         self.name=name

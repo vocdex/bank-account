@@ -1,5 +1,5 @@
 # Bank Account Simulations
-from account_class import BankAccount
+from bank_account.account_class import BankAccount
 def command_line_input():
     print("\n")
     print("Please select an option:")
